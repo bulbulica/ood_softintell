@@ -1,8 +1,9 @@
-﻿using System;
+﻿using OOPBasicsShared;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace oop
+namespace OOPBasicsCesarEncoder
 {
     public class CesarEncoder : IEncoder
     {

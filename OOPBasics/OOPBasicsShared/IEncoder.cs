@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace oop
+namespace OOPBasicsShared
 {
     public interface IEncoder
     {
