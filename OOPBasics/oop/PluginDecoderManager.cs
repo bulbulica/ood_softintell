@@ -25,7 +25,7 @@ namespace OOPBasics
             {
                 var dllFile = Assembly.LoadFile(file);
                 var exportedTypes = dllFile.GetExportedTypes();
-                var pluginIPlugin = typeof(IEncoderPlugin);
+                var pluginIPlugin = typeof(IDecoderPlugin);
                 foreach (var currentType in exportedTypes)
                 {
                     if (pluginIPlugin.IsAssignableFrom(currentType))

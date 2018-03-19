@@ -23,15 +23,27 @@ namespace oop
 
         static void Main(string[] args)
         {
-            PluginEncoderManager pluginManager = new PluginEncoderManager(@"D:\OOPBasics");
-            pluginManager.LoadPlugins();
-            List<IEncoderPlugin> plugins = pluginManager.GetPlugins();
+            PluginEncoderManager pluginEncoderManager = new PluginEncoderManager(@"D:\OOPBasics");
+            pluginEncoderManager.LoadPlugins();
+            List<IEncoderPlugin> encoderPlugins = pluginEncoderManager.GetPlugins();
 
-            for (var i = 0; i < plugins.Count; ++i)
+            PluginDecoderManager pluginDecoderManager = new PluginDecoderManager(@"D:\OOPBasics");
+            pluginDecoderManager.LoadPlugins();
+            List<IDecoderPlugin> decoderPlugins = pluginDecoderManager.GetPlugins();
+
+            System.Console.WriteLine("Encoders :");
+            for (var i = 0; i < encoderPlugins.Count; ++i)
             {
-                System.Console.WriteLine("{0}.{1}", i, plugins[i].GetName());
+                System.Console.WriteLine("{0}.{1}", i, encoderPlugins[i].GetName());
             }
-            System.Console.WriteLine("Algorithm choice: {0}", args[0]);
+
+            System.Console.WriteLine("\nDecoders :");
+            for (var i = 0; i < decoderPlugins.Count; ++i)
+            {
+                System.Console.WriteLine("{0}.{1}", i, decoderPlugins[i].GetName());
+            }
+
+            System.Console.WriteLine("\nAlgorithm choice to encode: {0}\n", args[0]);
 
             if (args.Length == 0)
             {
@@ -41,10 +53,10 @@ namespace oop
 
             int encoderArgument = Int32.Parse(args[0]);
 
-            IEnumerable<String> arguments = plugins[encoderArgument].GetRequiredArguments();
+            IEnumerable<String> arguments = encoderPlugins[encoderArgument].GetRequiredArguments();
             IDictionary<String, String> parameters = new Dictionary<String, String>();
 
-            if (encoderArgument > plugins.Count || encoderArgument < 0)
+            if (encoderArgument > encoderPlugins.Count || encoderArgument < 0)
             {
                 System.Console.WriteLine("Wrong number");
                 return;
@@ -58,10 +70,10 @@ namespace oop
                     parameters.Add(argument, args[argsValue++]);
                 }
 
-                plugins[encoderArgument].SetArguments(parameters);
+                encoderPlugins[encoderArgument].SetArguments(parameters);
             }
 
-            IEncoder selectedAlgorithm = plugins[encoderArgument].GetEncoder();
+            IEncoder selectedAlgorithm = encoderPlugins[encoderArgument].GetEncoder();
 
             TextEncoder textEncoder = new TextEncoder(selectedAlgorithm);
 
