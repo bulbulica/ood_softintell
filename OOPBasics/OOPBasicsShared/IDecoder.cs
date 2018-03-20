@@ -6,6 +6,6 @@ namespace OOPBasicsShared
 {
     public interface IDecoder
     {
-        byte[] Decode(byte[] inputData);
+        String Decode(byte[] inputData);
     }
 }

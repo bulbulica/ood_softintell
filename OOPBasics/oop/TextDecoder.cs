@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OOPBasics
 {
-    class TextDecoder
+    public class TextDecoder
     {
         private IDecoder byteDecoder;
 
@@ -14,9 +14,9 @@ namespace OOPBasics
             this.byteDecoder = byteDecoder;
         }
 
-        public byte[] ByteEncoder(String inputData)
+        public String Decode(byte[] inputData)
         {
-            return byteDecoder.Decode(Encoding.ASCII.GetBytes(inputData));
+            return byteDecoder.Decode(inputData);
         }
     }
 }

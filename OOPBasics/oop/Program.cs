@@ -5,7 +5,7 @@ using System.IO;
 using System.Globalization;
 using System.Collections.Generic;
 
-namespace oop
+namespace OOPBasics
 {
     class Program
     {
@@ -23,11 +23,11 @@ namespace oop
 
         static void Main(string[] args)
         {
-            PluginEncoderManager pluginEncoderManager = new PluginEncoderManager(@"D:\OOPBasics");
+            PluginsManager<IEncoderPlugin> pluginEncoderManager = new PluginsManager<IEncoderPlugin>(@"D:\OOPBasics");
             pluginEncoderManager.LoadPlugins();
             List<IEncoderPlugin> encoderPlugins = pluginEncoderManager.GetPlugins();
 
-            PluginDecoderManager pluginDecoderManager = new PluginDecoderManager(@"D:\OOPBasics");
+            PluginsManager<IDecoderPlugin> pluginDecoderManager = new PluginsManager<IDecoderPlugin>(@"D:\OOPBasics");
             pluginDecoderManager.LoadPlugins();
             List<IDecoderPlugin> decoderPlugins = pluginDecoderManager.GetPlugins();
 

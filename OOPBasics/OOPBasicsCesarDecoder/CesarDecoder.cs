@@ -13,12 +13,12 @@ namespace OOPBasicsCesarEncoder
         {
         }
 
-        public byte[] Decode(byte[] inputData)
+        public String Decode(byte[] inputData)
         {
-            byte[] encodedInput = new byte[inputData.Length];
+            String encodedInput = "";
             for (int i = 0; i < inputData.Length; ++i)
             {
-                encodedInput[i] = DecodeByte(inputData[i]);
+                encodedInput += DecodeByte(inputData[i]);
             }
             return encodedInput;
         }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace oop
+namespace OOPBasics
 {
     public class TextEncoder
     {
@@ -14,7 +14,7 @@ namespace oop
             this.byteEncoder = byteEncoder;
         }
 
-        public byte[] ByteEncoder(String inputData)
+        public byte[] Encode(String inputData)
         {
             return byteEncoder.Encode(Encoding.ASCII.GetBytes(inputData));
         }

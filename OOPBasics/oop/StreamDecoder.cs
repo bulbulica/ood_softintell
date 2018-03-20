@@ -5,38 +5,29 @@ using System.Text;
 
 namespace OOPBasics
 {
-    class StreamDecoder
+    public class StreamDecoder
     {
         private TextDecoder textDecoder;
-        private TextReader reader;
+        private BinaryReader reader;
 
-        public StreamDecoder(TextReader reader, TextDecoder textDecoder)
+        public StreamDecoder(BinaryReader reader, TextDecoder textDecoder)
         {
             this.reader = reader;
             this.textDecoder = textDecoder;
         }
 
-        public byte[] Decode()
+        public String Decode()
         {
-            String readedLine;
-            String allText = "";
+            byte[] allBytes = reader.ReadBytes(int.MaxValue);
 
-            while ((readedLine = reader.ReadLine()) != null)
-            {
-                allText += readedLine;
-            }
-
-            return textDecoder.ByteEncoder(allText);
+            return textDecoder.Decode(allBytes);
         }
 
-        public void Decode(BinaryWriter writer)
+        public void Decode(TextWriter writer)
         {
-            String readedLine;
+            byte[] readedBytes = reader.ReadBytes(int.MaxValue);
 
-            while ((readedLine = reader.ReadLine()) != null)
-            {
-                writer.Write(textDecoder.ByteEncoder(readedLine));
-            }
+            writer.Write(textDecoder.Decode(readedBytes));
         }
     }
 }

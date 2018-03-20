@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace oop
+namespace OOPBasics
 {
     public class StreamEncoder
     {
@@ -26,7 +26,7 @@ namespace oop
                 allText += readedLine;
             }
 
-            return textEncoder.ByteEncoder(allText);
+            return textEncoder.Encode(allText);
         }
 
         public void Encode(BinaryWriter writer)
@@ -35,7 +35,7 @@ namespace oop
 
             while ((readedLine = reader.ReadLine()) != null)
             {
-                writer.Write(textEncoder.ByteEncoder(readedLine));
+                writer.Write(textEncoder.Encode(readedLine));
             }
         }
     }
