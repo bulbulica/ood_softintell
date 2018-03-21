@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "OOPBasics": {
-      "commandName": "Project",
-      "commandLineArgs": "1 128 255 112"
-    }
-  }
-}

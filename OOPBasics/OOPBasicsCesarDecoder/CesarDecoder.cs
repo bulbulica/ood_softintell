@@ -23,9 +23,9 @@ namespace OOPBasicsCesarEncoder
             return encodedInput;
         }
 
-        private byte DecodeByte(byte byteToDecode)
+        private char DecodeByte(byte byteToDecode)
         {
-            return (byte)((byteToDecode + 26 - offset) % 128);
+            return (char)(byteToDecode - offset);
         }
     }
 }

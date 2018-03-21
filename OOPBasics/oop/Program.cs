@@ -23,36 +23,10 @@ namespace OOPBasics
 
         static void Main(string[] args)
         {
-            PluginsManager<IEncoderPlugin> pluginEncoderManager = new PluginsManager<IEncoderPlugin>(@"D:\OOPBasics");
-            pluginEncoderManager.LoadPlugins();
-            List<IEncoderPlugin> encoderPlugins = pluginEncoderManager.GetPlugins();
-
-            PluginsManager<IDecoderPlugin> pluginDecoderManager = new PluginsManager<IDecoderPlugin>(@"D:\OOPBasics");
-            pluginDecoderManager.LoadPlugins();
-            List<IDecoderPlugin> decoderPlugins = pluginDecoderManager.GetPlugins();
-
-            System.Console.WriteLine("Encoders :");
-            for (var i = 0; i < encoderPlugins.Count; ++i)
-            {
-                System.Console.WriteLine("{0}.{1}", i, encoderPlugins[i].GetName());
-            }
-
-            System.Console.WriteLine("\nDecoders :");
-            for (var i = 0; i < decoderPlugins.Count; ++i)
-            {
-                System.Console.WriteLine("{0}.{1}", i, decoderPlugins[i].GetName());
-            }
-
-            System.Console.WriteLine("\nAlgorithm choice to encode: {0}\n", args[0]);
-
-            if (args.Length == 0)
-            {
-                System.Console.WriteLine("Please enter a numeric argument.");
-                return;
-            }
-
-            int encoderArgument = Int32.Parse(args[0]);
-
+            AppManager app = new AppManager();
+            app.Initialize();
+            app.RunApp();
+            /* 
             IEnumerable<String> arguments = encoderPlugins[encoderArgument].GetRequiredArguments();
             IDictionary<String, String> parameters = new Dictionary<String, String>();
 
@@ -108,7 +82,7 @@ namespace OOPBasics
                 {
                     writer.Close();
                 }
-            }
+            }*/
         }
     }
 }

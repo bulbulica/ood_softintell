@@ -18,14 +18,27 @@ namespace OOPBasics
 
         public String Decode()
         {
-            byte[] allBytes = reader.ReadBytes(int.MaxValue);
+            byte[] allBytes = reader.ReadBytes(4000000);
 
             return textDecoder.Decode(allBytes);
         }
 
         public void Decode(TextWriter writer)
         {
-            byte[] readedBytes = reader.ReadBytes(int.MaxValue);
+            int maxValue = 4000000;
+            byte[] readedBytes = new byte[] { };
+            while (true)
+            {
+                byte[] readBytes = reader.ReadBytes(maxValue);
+                if (readBytes.Length > 0)
+                {
+                    readedBytes = readBytes;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
             writer.Write(textDecoder.Decode(readedBytes));
         }
