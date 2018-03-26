@@ -9,10 +9,6 @@ namespace Main
         private StudentsController controller;
         private ConsoleMenu menu = new ConsoleMenu();
 
-        // trebuie modificat aici
-        StudentModel firstStudent = new StudentModel("Name 1", "Surname 1", "Group 1", 1);
-        StudentModel secondStudent = new StudentModel("Name 2", "Surname 2", "Group 2", 2);
-
         public MainView(StudentsController controller)
         {
             this.controller = controller;
