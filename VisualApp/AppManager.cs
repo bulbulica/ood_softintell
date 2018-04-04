@@ -27,7 +27,22 @@ namespace VisualApp
             menu.Run();
         }
 
-        private void AddNewCircle(object sender, object contextObject)
+        private int ReadIdentifier()
+        {
+            int identifier = -1;
+            while (true)
+            {
+                Console.WriteLine("Identificator: ");
+                identifier = compute.ToInt(Console.ReadLine());
+                if (!canvas.CheckExistingIdentifier(identifier))
+                {
+                    break;
+                }
+            }
+            return identifier;
+        }
+
+        private Circle ReadCircle()
         {
             String radius = "Raza";
             String center = "Centrul cercului";
@@ -45,15 +60,7 @@ namespace VisualApp
             Console.WriteLine(center + " - second number: ");
             secondCenter = compute.ToDouble(Console.ReadLine());
 
-            while (true)
-            {
-                Console.WriteLine("Identificator: ");
-                identifier = compute.ToInt(Console.ReadLine());
-                if (!canvas.CheckExistingIdentifier(identifier))
-                {
-                    break;
-                }
-            }
+            identifier = ReadIdentifier();
 
             centerNumber = new Tuple<double, double>(firstCenter, secondCenter);
             Dictionary<String, object> circleData = new Dictionary<string, object>();
@@ -61,68 +68,31 @@ namespace VisualApp
             circleData.Add(radius, radiusNumber);
             circleData.Add(center, centerNumber);
 
-            Shape circle = new Circle(circleData, identifier);
+            return new Circle(circleData, identifier);
+        }
+
+        private void AddNewCircle(object sender, object contextObject)
+        {
+            Shape circle = ReadCircle();
 
             canvas.AddNewShape(circle);
 
-            Console.WriteLine("Cercul a fost adaugat cu succes {0}", circle.ComputeArea());
+            Console.WriteLine("Cercul a fost adaugat cu succes");
             Console.Read();
         }
 
         private void AddNewCircleToGroup(object sender, object contextObject)
         {
-            String radius = "Raza";
-            String center = "Centrul cercului";
-            String groupText = "Grup";
-            double radiusNumber;
-            Tuple<double, double> centerNumber;
-            double firstCenter, secondCenter;
-            int identifier, group;
+            Shape circle = ReadCircle();
 
-            Console.WriteLine(radius + ": ");
-            radiusNumber = compute.ToDouble(Console.ReadLine());
+            Console.WriteLine("Grup: ");
+            int group = compute.ToInt(Console.ReadLine());
 
-            Console.WriteLine(center + " - first number: ");
-            firstCenter = compute.ToDouble(Console.ReadLine());
-
-            Console.WriteLine(center + " - second number: ");
-            secondCenter = compute.ToDouble(Console.ReadLine());
-
-            while (true)
-            {
-                Console.WriteLine("Identificator: ");
-                identifier = compute.ToInt(Console.ReadLine());
-                if (!canvas.CheckExistingIdentifier(identifier))
-                {
-                    break;
-                }
-            }
-
-            Console.WriteLine(groupText + ": ");
-            group = compute.ToInt(Console.ReadLine());
-
-            centerNumber = new Tuple<double, double>(firstCenter, secondCenter);
-            Dictionary<String, object> circleData = new Dictionary<string, object>();
-
-            circleData.Add(radius, radiusNumber);
-            circleData.Add(center, centerNumber);
-
-            Shape circle = new Circle(circleData, identifier);
-
-            int groupIndex = canvas.GetGroupIndex(group);
-            if (groupIndex > -1)
-            {
-                canvas.AddNewShapeToGroup(circle, groupIndex);
-                Console.WriteLine("Cercul a fost adaugat cu succes in grup!");
-            }
-            else
-            {
-                Console.WriteLine("Cercul nu a fost adaugat in grup!");
-            }
+            AddToShapeToCanvasGroups(circle, group);
             Console.Read();
         }
 
-        private void AddNewRectangle(object sender, object contextObject)
+        private Rectangle ReadRectangle()
         {
             String latura1 = "Latura1";
             String latura2 = "Latura2";
@@ -135,22 +105,19 @@ namespace VisualApp
             Console.WriteLine(latura2 + ": ");
             laturaSmall = compute.ToDouble(Console.ReadLine());
 
-            while (true)
-            {
-                Console.WriteLine("Identificator: ");
-                identifier = compute.ToInt(Console.ReadLine());
-                if (!canvas.CheckExistingIdentifier(identifier))
-                {
-                    break;
-                }
-            }
+            identifier = ReadIdentifier();
 
             Dictionary<String, object> rectangleData = new Dictionary<string, object>();
 
             rectangleData.Add(latura1, laturaBig);
             rectangleData.Add(latura2, laturaSmall);
 
-            Shape rectangle = new Rectangle(rectangleData, identifier);
+            return new Rectangle(rectangleData, identifier);
+        }
+
+        private void AddNewRectangle(object sender, object contextObject)
+        {
+            Shape rectangle = ReadRectangle();
 
             canvas.AddNewShape(rectangle);
 
@@ -160,66 +127,38 @@ namespace VisualApp
 
         private void AddNewRectangleToGroup(object sender, object contextObject)
         {
-            String latura1 = "Latura1";
-            String latura2 = "Latura2";
-            String groupText = "Grup";
-            double laturaBig, laturaSmall;
-            int identifier, group;
+            Shape rectangle = ReadRectangle();
 
-            Console.WriteLine(latura1 + ": ");
-            laturaBig = compute.ToDouble(Console.ReadLine());
+            Console.WriteLine("Grup: ");
+            int group = compute.ToInt(Console.ReadLine());
 
-            Console.WriteLine(latura2 + ": ");
-            laturaSmall = compute.ToDouble(Console.ReadLine());
+            AddToShapeToCanvasGroups(rectangle, group);
+            Console.Read();
+        }
 
-            while (true)
-            {
-                Console.WriteLine("Identificator: ");
-                identifier = compute.ToInt(Console.ReadLine());
-                if (!canvas.CheckExistingIdentifier(identifier))
-                {
-                    break;
-                }
-            }
-
-            Console.WriteLine(groupText + ": ");
-            group = compute.ToInt(Console.ReadLine());
-
-            Dictionary<String, object> rectangleData = new Dictionary<string, object>();
-
-            rectangleData.Add(latura1, laturaBig);
-            rectangleData.Add(latura2, laturaSmall);
-
-            Shape rectangle = new Rectangle(rectangleData, identifier);
-
-            int groupIndex = canvas.GetGroupIndex(group);
+        private void AddToShapeToCanvasGroups(Shape shape, int identifier)
+        {
+            int groupIndex = canvas.GetGroupIndex(identifier);
             if (groupIndex > -1)
             {
-                canvas.AddNewShapeToGroup(rectangle, groupIndex);
-                Console.WriteLine("Dreptunghiul a fost adaugat cu succes in grup!");
+                canvas.AddNewShapeToGroup(shape, groupIndex);
+                Console.WriteLine("Forma a fost adaugata cu succes in grup!");
             }
             else
             {
-                Console.WriteLine("Dreptunghiul nu a fost adaugat in grup!");
+                Console.WriteLine("Forma nu a fost adaugata in grup!");
             }
-
-            Console.Read();
         }
 
         private void CreateNewGroup(object sender, object contextObject)
         {
             int identifier;
-            while (true)
-            {
-                Console.WriteLine("Identificator: ");
-                identifier = compute.ToInt(Console.ReadLine());
-                if (!canvas.CheckExistingIdentifier(identifier))
-                {
-                    break;
-                }
-            }
+            identifier = ReadIdentifier();
+
             Group group = new Group(identifier);
             canvas.AddNewGroup(group);
+            Console.WriteLine("Grupul a fost adaugat cu succes!");
+            Console.Read();
         }
 
         private void ListAllObjects(object sender, object contextObject)
